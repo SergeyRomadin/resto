@@ -2,7 +2,7 @@ export default class RestoService {
     
 
 
-    getMenuItems() {
+    async getMenuItems() {
         const getResource = async(url) => {
             const res = await fetch(url);
             
@@ -13,9 +13,6 @@ export default class RestoService {
             return await res.json();
         };
     
-        
-
-        return getResource("http://localhost:3004/menu")
-            .then((data) => data);
+        return await getResource("http://localhost:3004/menu");
     }
 }
