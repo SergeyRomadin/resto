@@ -2,6 +2,8 @@ import React from 'react';
 import cartIcon from './shopping-cart-solid.svg';
 import './app-header.scss';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+
 
 const AppHeader = ({total}) => {
     return (
@@ -18,4 +20,14 @@ const AppHeader = ({total}) => {
     )
 };
 
-export default AppHeader;
+const mapStateToProps = ({total}) => {
+    return {
+        total
+    }
+};
+
+// const mapDispatchToProps = {
+
+// };
+
+export default connect(mapStateToProps)(AppHeader);

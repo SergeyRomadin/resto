@@ -3,16 +3,17 @@ import './cart-table.scss';
 import {connect} from 'react-redux';
 import {deletFromCart} from '../../actions';
 
+
 const CartTable = ({items, deletFromCart}) => {
     return (
         <>
             <div className="cart__title">Ваш заказ:</div>
             <div className="cart__list">
                 {
-                    items.map(item => {
+                    items.map((item, i) => {
                         const {title, price, url, id } = item;
                         return (
-                            <div key={id} className="cart__item">
+                            <div key={i} className="cart__item">
                                 <img src={url} className="cart__item-img" alt={title}></img>
                                 <div className="cart__item-title">{title}</div>
                                 <div className="cart__item-price">{price}$</div>

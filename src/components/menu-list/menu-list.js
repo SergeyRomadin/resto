@@ -5,6 +5,7 @@ import WithRestoService from '../hoc';
 import {menuLoaded, menuRequested, addedToCart} from '../../actions';
 import Spinner from '../spinner';
 
+
 import './menu-list.scss';
 
 class MenuList extends Component {
@@ -27,8 +28,8 @@ class MenuList extends Component {
         return (
             <ul className="menu__list">
                 {
-                menuItems.map(menuItem => {
-                    return <MenuListItem onAddToCart={() => addedToCart(menuItem.id)} key={menuItem.id} menuItem={menuItem}/>
+                menuItems.map((menuItem, i) => {
+                    return <MenuListItem onAddToCart={() => addedToCart(menuItem.id)} key={i} menuItem={menuItem}/>
                 })
             }
             </ul>
