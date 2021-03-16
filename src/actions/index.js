@@ -25,9 +25,20 @@ const deletFromCart = (id) => {
     }
 } 
 
+const changedCount = (id, value) => {
+    return {
+        type: 'ITEM_CHANGED_COUNT',
+        payload: {
+            id, 
+            value
+        }
+    }
+}
+
 export {
     menuLoaded,
     menuRequested,
     addedToCart,
-    deletFromCart
+    deletFromCart,
+    changedCount
 };

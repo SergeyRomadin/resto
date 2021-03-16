@@ -1,7 +1,9 @@
+// import { changedCount } from "../actions";
+
 const initialState = {
     menu: [],
     loading: true,
-    items: [],
+    newValue: null,
     total: 0
 }
 
@@ -21,38 +23,42 @@ const reducer = (state = initialState, action) => {
             };
         case 'ITEM_ADD_TO_CART':
             const id = action.payload;
-            const item = state.menu.find(item => item.id === id);
-            const newItem = {
-                title: item.title,
-                price: item.price,
-                url: item.url,
-                id: item.id
-            }
-            const items = state.items;
+            let items = state.menu;
+            const item = items.find(item => item.id === id);
+            item.count++;
+            console.log(state);
             let initialValue = 0;
-            let total = items.reduce((total, itm) => total + itm.price, initialValue) + newItem.price;
+            let total = items.reduce((total, itm) => total + (itm.price * itm.count), initialValue);
             return {
                 ...state,
-                items: [
-                    ...state.items,
-                    newItem
-                ],
+
                 total
 
             };
         case 'ITEM_REMOVE_FROM_CART':
             const idx = action.payload;
-            const itemIndex = state.items.findIndex(item => item.id === idx);
             let removeItem = state.menu.find(item => item.id === idx);
-            let incTotal = state.total - removeItem.price;
+            let totalDec = state.total - (removeItem.price * removeItem.count);
+            removeItem.count = 0;
+            console.log(state);
             return {
                 ...state,
-                items: [
-                    ...state.items.slice(0, itemIndex),
-                    ...state.items.slice(itemIndex + 1)
-                ],
-                total: incTotal
-            };
+                total: totalDec
+            }
+        case 'ITEM_CHANGED_COUNT':
+            const idC = action.payload.id;
+            const value = action.payload.value;
+            const changedItem = state.menu.find(item => item.id === idC);
+            changedItem.count = value;
+            let initialValueCh = 0;
+            let itemsCh = state.menu; 
+            let totalCh = itemsCh.reduce((total, itm) => total + (itm.price * itm.count), initialValueCh);
+            return {
+                ...state,
+                total: totalCh,
+                newValue: value
+            }
+
         default: 
             return state;
     }
